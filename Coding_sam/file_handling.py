@@ -22,17 +22,9 @@ import sys
 # sys.argv[0]
 # sys.argv[1]
 
-input_location = '/home/lgutierrezfunderburk/Documents/Test/FASTA/'
-output_location = '/home/lgutierrezfunderburk/Documents/Test/Save_results/2018/synteny_in_x_and_n-x/synteny_in_3_and_n-3/'
-#output_location = '/home/lgutierrezfunderburk/Documents/Test/Save_results/synteny_in_2_and_n-2_species/F2/'
-
-########################################################################################################################################################################################################################################################################
-"""Tools"""
-
-pd_dictionary = pd.DataFrame(file_dictionary)
-
-
-########################################################################################################################################################################################################################################################################
+input_location = './FASTA/'
+output_location = './synteny_in_x_and_n-x/synteny_in_3_and_n-3/'
+#output_location = './synteny_in_2_and_n-2_species/F2/'
 
 ########################################################################################################################################################################################################################################################################
 
@@ -42,30 +34,13 @@ ALL_GENE_FILE_DIRECTORY = "./DATA/ALL_GENE_file"
 SYNTENY_RESULTS_DIRECTORY= "./synteny_results/"
 
 ### STEP 0. Give the script a way to access adequate FASTA files
-            
-# Given a string of information, such as 
-#  Anopheles_albimanus	KB672457	MZ22528743	AALB006655	-	4678482	4679472	3	4678482-4678753:4678832-4679255:4679290-4679472
-# We want to be able to use this information once we start working with Species name, 
-#       Fragment, Gene name, Gene orientation, and Exons Coordinates
-# We define a function whose input is a string of the form:
-# "Anopheles_albimanus	KB672457	MZ22528743	AALB006655	-	4678482	4679472	3	4678482-4678753:4678832-4679255:4679290-4679472"
-# separated by tabs, and whose output is an array. In our example, the function will return:
-# ['Anopheles_albimanus','KB672457,'MZ22528743','AALB006655,'-','4678482','4679472','3','4678482-4678753:4678832-4679255:4679290-4679472']
+    
 def get_information(string):
     
     """This function takes as input a string of characters such that each word is separated by tabs/space 
     and returns an array such that each entry corresponds to a word"""
     information = string.split("\t")
     return information    
-
-# This function takes as input
-#     a string of the form
-#     "Species_name  Fragment    Family_name Gene_name   Orientation Start_exon  End_exon    Number_exons    Exon_coordinates"
-# For example
-#     "Anopheles_albimanus	KB672457	MZ22528743	AALB006655	-	4678482	4679472	3	4678482-4678753:4678832-4679255:4679290-4679472"
-# And outputs a string with the file name of the appropriate FASTA file 
-# In our example, the FASTA file that will be opened is called 
-#     "Anopheles-albimanus-STECLA_SCAFFOLDS_AalbS1.fa"
 
 # This function uses our tool file_dictionary whose keys are species names, and values correspond to files. 
 def get_FASTA_file(string):
@@ -132,10 +107,6 @@ def get_header_FASTA(string):
     contig = [save_line[i] for i in range(len(save_line)) if save_line[i].split(">")[1].split(" ")[0] == fragment]
     header = contig[0]
     return header
-    #with open(output_location + "HEADERS/"+ info[2] + str("_") +info[1] + "_header",'w') as outfile:
-    #    for letter in header:
-    #        outfile.write(letter)
-    #outfile.close()
 ########################################################################################################################################################################################################################################################################
 
 
@@ -276,12 +247,6 @@ def decide_for_reverse_complement(string_sign,sequence):
 """ Function Definition Area, Part III: Storage"""
 
     
-# This function takes as input a string of the form 
-#  "Species_name  Fragment    Family_name Gene_name   Orientation Start_exon  End_exon    Number_exons    Exon_coordinates"
-# For example
-#   "Anopheles_albimanus    KB672457	MZ22528743	AALB006655	-	4678482	4679472	3	4678482-4678753:4678832-4679255:4679290-4679472"
-# Gets appropriate FASTA file, extracts subsequence, decides whether to compute the reverse complement, and saves on file
-#  for later analysis using MUSCLE or MAFFT
 def store_sequences(string):
     
     # Get adequate FASTA file, as per our file_dictionary
@@ -324,20 +289,6 @@ def store_sequences(string):
 ### This function takes as input an array like the one generated using the function above, and as output it yields a string
 ###  containing the concatenated elements found in the array
 
-### Sample Suppose we feed the function store_sequences(string) the following three strings associated 
-#     to the family MZ22514725 
-
-#    Anopheles_gambiae	2L	MZ22514725	AGAP007354	+	46008993	46011382	2	46008993-46009709:46011119-46011382
-#    Anopheles_melas	KI427838	MZ22514725	AMEC005293	-	3804	6159	2	3804-4067:5443-6159
-#    Anopheles_merus	KI438994	MZ22514725	AMEM017160	+	192755	195221	2	192755-193522:194958-195221
-
-# We can then use store_sequences(string) and store all genes into a single array of the form
-
-# output_array = [['>2L chromosome:AgamP3:2L:1:49364325:1\n', 'ATGACGGTCACGTACGGTGTCGAGAAGTGCCCGGAAAAGTTCGACGAGTATCGGTGCAGCCTGCCCAGCTGGCGGCGGACCAGCTGCGCGAGGACGATCACATCCGCAAGCAGGCCATCGA', '\n'], ['>KI427838 dna:supercontig supercontig:GCA_000473525.1:KI427838:1:52148:1\n', 'ATGACGGTCACGTACGGTGTCGAGAAGTGTCCGGAAAAGTTCGACGAGTATCGGTGCAGCCTGCCCGAGCAGTACCGGAAGCTGGCCTGCGCGAGGACGATCACATCCGCAAGCAGGCCATCGA', '\n'], ['>KI438994 dna:supercontig supercontig:GCA_000473845.1:KI438994:1:1088242:1\n', 'TTGGAGGTGATCGTGAACACAACAGGAACAACACAACACAGCAGCAGCATCATGACGGTCACGTACGGTGTCGAGAAGTGTCCGGAAAAGTTCGACGAGTATCGGTGCAACCTGCCCGAAAGCT', '\n']]
-
-# We can then turn this array into a single string that will later be written on a file for later sequence alignment
-
-# We can then  use the function below to turn our array of arrays into a single string
 def turn_to_string(output_array):
     """This functions takes as input an array containing FASTA headers and gene sequences and 
     outputs a string formed by the array elements"""
@@ -357,7 +308,7 @@ def turn_to_string(output_array):
 #   we are working with F1, F2 or F1_F2. It will then store the gene sequences associated to MZ22514725 and store them into a file
 
 # A word on this input dictionary:  keys are family names (i.e. MZ22514725) and values are strings associated to
-#  that family. Strings associated are those that appear in the ALL_GENE_FILE file upon searching for that particular family name.
+#  that family. Strings associated are those that appear in the file upon searching for that particular family name.
 def store_seq_on_file(Fi_family_gene_dic,fam_name_str):
     
     """This function will store gene sequences for each family found in synteny files"""
