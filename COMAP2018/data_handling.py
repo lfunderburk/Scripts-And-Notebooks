@@ -1,4 +1,4 @@
-#Authors: Laura Gutierrez Funderburk, Bryce Hayley
+#Authors: Laura Gutierrez Funderburk, Bryce Haley
 # Date: February 8 - 12 2018
 # COMAP 2018
 
