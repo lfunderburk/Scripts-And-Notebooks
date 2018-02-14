@@ -29,34 +29,8 @@ output_location = '/home/lgutierrezfunderburk/Documents/Test/Save_results/2018/s
 ########################################################################################################################################################################################################################################################################
 """Tools"""
 
-#Define dictionary
-file_dictionary = {'maculatus':'Anopheles-maculatus-Maculatus3_SCAFFOLDS_AmacM1.fa',
-                  'epiroticus':'Anopheles-epiroticus-Epiroticus2_SCAFFOLDS.AepiE1.fa',
-                  'atroparvus':'Anopheles-atroparvus-EBRO_SCAFFOLDS_AatrE1.fa',
-                  'sinensis':'Anopheles-sinensis-SINENSIS_SCAFFOLDS_AsinS1.fa',
-                  'melas':'Anopheles-melas-CM1001059_SCAFFOLDS_AmelC1.fa',
-                  'merus':'Anopheles-merus-MAF1_SCAFFOLDS_AmerM1.fa',
-                  'stephensi':('Anopheles-stephensi-SDA-500_SCAFFOLDS_AsteS1.fa',\
-                               'Anopheles-stephensiI-Indian_SCAFFOLDS_AsteI2.fa'),
-                  'darlingi':('Anopheles-darlingi-Coari_SCAFFOLDS_AdarC3.fa',\
-                              'Anopheles-darlingi-Coari_SCAFFOLDS_AdarC2.fa'),
-                  'gambiae':('Anopheles-gambiae-PEST_CHROMOSOMES_AgamP3.fa',\
-                            'Anopheles-gambiae-PEST_SCAFFOLDS_AgamP3.fa'),
-                  'minimus':'Anopheles-minimus-MINIMUS1_SCAFFOLDS_AminM1.fa',
-                  'arabiensis':'Anopheles-arabiensis-Dongola_SCAFFOLDS_AaraD1.fa',
-                  'farauti':'Anopheles-farauti-FAR1_SCAFFOLDS_AfarF1.fa',
-                  'quadriannulatus':'Anopheles-quadriannulatus-SANGWE_SCAFFOLDS_AquaS1.fa',
-                  'funestus':'Anopheles-funestus-FUMOZ_SCAFFOLDS_AfunF1.fa',
-                  'dirus':'Anopheles-dirus-WRAIR2_SCAFFOLDS_AdirW1.fa',
-                  'christyi':'Anopheles-christyi-ACHKN1017_SCAFFOLDS_AchrA1.fa',
-                  'culicifacies':'Anopheles-culicifacies-A37_SCAFFOLDS_AculA1.fa',
-                  'albimanus':'Anopheles-albimanus-STECLA_SCAFFOLDS_AalbS1.fa'}
 pd_dictionary = pd.DataFrame(file_dictionary)
 
-# Key words
-key_words= {'maculatus', 'epiroticus', 'atroparvus', 'sinensis', 'melas', 'merus', 'stephensi', 
-'darlingi', 'gambiae', 'minimus', 'arabiensis', 'farauti', 'quadriannulatus', 'funestus', 'dirus', 
-'christyi', 'culicifacies', 'albimanus'}
 
 ########################################################################################################################################################################################################################################################################
 
